@@ -32,14 +32,13 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
-group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver'
+group :doc do
+  # bundle exec rake doc:rails generates the API under doc/api.
+  gem 'sdoc', require: false
 end
+gem 'validates_timeliness'
+gem 'will_paginate'
+gem "bcrypt"
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
@@ -48,8 +47,40 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  
 end
 
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # Adds support for Capybara system testing and selenium driver
+  gem 'capybara', '~> 2.13'
+  gem 'selenium-webdriver'
+  
+  gem 'faker'
+  gem 'hirb'
+  gem 'wirble'
+  gem 'thin'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request'
+  gem 'factory_bot_rails'
+end
+# Gems used only in testing
+group :test do
+  gem 'shoulda'
+  gem 'shoulda-matchers'
+  gem 'simplecov'
+  gem 'single_test'
+end
+
+
+# Fetching shoulda 2.11.3 (was 3.5.0)
+# Installing shoulda 2.11.3 (was 3.5.0)
+# Fetching shoulda-matchers 3.1.2 (was 2.8.0)
+# Installing shoulda-matchers 3.1.2 (was 2.8.0)
+
+
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'validates_timeliness', '~> 4.0'
+#gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
