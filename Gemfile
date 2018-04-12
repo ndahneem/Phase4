@@ -56,7 +56,9 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
-  
+  gem 'cucumber-rails', :require => false
+    # database_cleaner is not required, but highly recommended
+  gem 'database_cleaner'
   gem 'faker'
   gem 'hirb'
   gem 'wirble'
@@ -68,8 +70,8 @@ group :development, :test do
 end
 # Gems used only in testing
 group :test do
-  gem 'shoulda'
-  gem 'shoulda-matchers'
+  gem 'shoulda', '~> 3.5.0'
+  gem 'shoulda-matchers', '~> 2.8.0'
   gem 'simplecov'
   gem 'single_test'
 end

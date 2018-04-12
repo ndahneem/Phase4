@@ -2,7 +2,7 @@
 
 <h1>Camp Instructors</h1>
 
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Camp</th>
@@ -14,8 +14,8 @@
   <tbody>
     <% @camp_instructors.each do |camp_instructor| %>
       <tr>
-        <td><%= camp_instructor.camp_id %></td>
-        <td><%= camp_instructor.instructor_id %></td>
+        <td><%= camp_instructor.camp.name %></td>
+        <td><%= camp_instructor.instructor.name %></td>
         <td><%= link_to 'Show', camp_instructor %></td>
         <td><%= link_to 'Edit', edit_camp_instructor_path(camp_instructor) %></td>
         <td><%= link_to 'Destroy', camp_instructor, method: :delete, data: { confirm: 'Are you sure?' } %></td>

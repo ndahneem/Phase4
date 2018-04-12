@@ -10,18 +10,21 @@
       </ul>
     </div>
   <% end %>
-
+<div class="container" style="color: #82613c">
   <div class="field">
     <%= form.label :camp_id %>
-    <%= form.number_field :camp_id, id: :camp_instructor_camp_id %>
+    <!--<%= form.number_field :camp_id, id: :camp_instructor_camp_id %>-->
+    <%= form.collection_select :camp_id, Camp.alphabetical.active.all, :id, :name, :prompt => "Select Camp..." %>
   </div>
 
   <div class="field">
     <%= form.label :instructor_id %>
-    <%= form.number_field :instructor_id, id: :camp_instructor_instructor_id %>
+    <!--<%= form.number_field :instructor_id, id: :camp_instructor_instructor_id %>-->
+    <%= form.collection_select :instructor_id, Instructor.alphabetical.active.all, :id, :name, :prompt => "Select Instructor..." %>
   </div>
 
   <div class="actions">
     <%= form.submit %>
+  </div>
   </div>
 <% end %>
