@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180405101155) do
+ActiveRecord::Schema.define(version: 20180413172756) do
 
   create_table "camp_instructors", force: :cascade do |t|
     t.integer "camp_id"
@@ -42,6 +42,14 @@ ActiveRecord::Schema.define(version: 20180405101155) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "families", force: :cascade do |t|
+    t.string "family_name"
+    t.string "parent_first_name"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "instructors", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -61,6 +69,17 @@ ActiveRecord::Schema.define(version: 20180405101155) do
     t.string "state"
     t.string "zip"
     t.integer "max_capacity"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "password_digest"
+    t.string "role"
+    t.string "email"
+    t.string "phone"
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

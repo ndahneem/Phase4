@@ -1,4 +1,5 @@
 class CampsController < ApplicationController
+  include ApplicationHelper
   before_action :set_camp, only: [:show, :edit, :update, :destroy]
 
   def index

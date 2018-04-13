@@ -1,4 +1,17 @@
 FactoryBot.define do
+  factory :family do
+    family_name "MyString"
+    parent_first_name "MyString"
+    active false
+  end
+  factory :user do
+    username "MyString"
+    password_digest "MyString"
+    role "MyString"
+    email "MyString"
+    phone "MyString"
+    active false
+  end
   
   factory :curriculum do
     name "Mastering Chess Tactics"
