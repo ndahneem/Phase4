@@ -14,7 +14,24 @@
  *= require overrides
  */
 
-$primary-color: #303F9F;
+$primary-color: #4d4150;
 @import "materialize";
 @import "https://fonts.googleapis.com/icon?family=Material+Icons";
 
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.bg {
+    /* The image used */
+    background-image: url("https://images5.alphacoders.com/381/thumb-1920-381340.jpg");
+
+    /* Full height */
+    height: 75%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
