@@ -1,43 +1,17 @@
-<%= form_with(model: curriculum, local: true) do |form| %>
-  <% if curriculum.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(curriculum.errors.count, "error") %> prohibited this curriculum from being saved:</h2>
-
-      <ul>
-      <% curriculum.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<%= simple_form_for(@curriculum) do |f| %>
+  <%= f.error_notification %>
+  <div class="row">
+    <div class="form-inputs">
+      <%= f.input :name, label_html: { class: 'active' } %>
+      <%= f.input :min_rating, label_html: { class: 'active' } %>
+      <%= f.input :max_rating, label_html: { class: 'active' } %>
+      <%= f.input :description, label_html: { class: 'active' } %>
+      <%= f.input :active %>
     </div>
-  <% end %>
-  <div class="container" style="color: #82613c">
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, id: :curriculum_name %>
   </div>
-
-  <div class="field">
-    <%= form.label :min_rating %>
-    <%= form.number_field :min_rating, id: :curriculum_min_rating %>
-  </div>
-
-  <div class="field">
-    <%= form.label :max_rating %>
-    <%= form.number_field :max_rating, id: :curriculum_max_rating %>
-  </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description, id: :curriculum_description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :active %>
-    <%= form.check_box :active, id: :curriculum_active %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <div class="row">
+    <div class="form-actions col s8">
+      <%= f.button :submit %>
+    </div>
   </div>
 <% end %>

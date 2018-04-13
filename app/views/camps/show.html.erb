@@ -1,44 +1,15 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col s7">
+    <%= render :partial => "camp_details" %>
+  </div>
+  <div class="col s5">
+    <%= render :partial => "camp_instructors"%>
+    <%# render :partial => "camp_students"%>
+  </div>
+</div>
+<div class="row">
+  <div class="col s12">
+    <%= render :partial => "partials/object_options", locals: {model_name: "camp", object: @camp} %>
+  </div>
+</div>
 
-<p>
-  <strong>Curriculum:</strong>
-  <%= @camp.curriculum_id %>
-</p>
-
-<p>
-  <strong>Location:</strong>
-  <%= @camp.location_id %>
-</p>
-
-<p>
-  <strong>Cost:</strong>
-  <%= @camp.cost %>
-</p>
-
-<p>
-  <strong>Start date:</strong>
-  <%= @camp.start_date %>
-</p>
-
-<p>
-  <strong>End date:</strong>
-  <%= @camp.end_date %>
-</p>
-
-<p>
-  <strong>Time slot:</strong>
-  <%= @camp.time_slot %>
-</p>
-
-<p>
-  <strong>Max students:</strong>
-  <%= @camp.max_students %>
-</p>
-
-<p>
-  <strong>Active:</strong>
-  <%= @camp.active %>
-</p>
-
-<%= link_to 'Edit', edit_camp_path(@camp) %> |
-<%= link_to 'Back', camps_path %>

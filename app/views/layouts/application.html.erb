@@ -1,82 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Chess Camp</title>
-<!-- Latest compiled and minified CSS -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-
-<link rel="stylesheet" href="assets/css/bootstrap.min.css" >
-<!------ Include the above in your HEAD tag ---------->
+    <title>A&M Chess Camp :: <%= controller.controller_name.capitalize %></title>
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application" %>
+    <%= stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons" %>
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    
-    
-    
   </head>
-  
-  
-  <body >
 
-		
-    <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Chess Camp</a>
-    </div>
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/contact">Contact</a></li>
-      </ul>
-    </div><!--/.nav-collapse -->
-</div><!--/.navbar -->
+  <body>
 
-
-<div class="row-offcanvas row-offcanvas-left">
-  <div id="sidebar" class="sidebar-offcanvas">
-      <div class="col-md-12">
-        <h3>Learn More </h3>
-        <ul class="nav nav-pills nav-stacked" >
-          <li class="nav-item"> <a class="nav-link active" data-toggle="pill" role="tab" aria-selected="true" href="/">Home</a></li>
-          <li class="nav-item"> <a class="nav-link" data-toggle="pill" role="tab" href="/camps">Camps</a></li>
-          <li class="nav-item"> <a class="nav-link" data-toggle="pill" role="tab"href="/locations">Locations</a></li>
-          <li class="nav-item"> <a class="nav-link" data-toggle="pill" role="tab"href="/instructors">Instructors</a></li>
-          <li class="nav-item"> <a class="nav-link" data-toggle="pill" role="tab" href="/curriculums">Curriculums</a></li>
-          <li class="nav-item"> <a class="nav-link" data-toggle="pill" role="tab" href="/camp_instructors">Camp Instructors</a></li>
-
-        </ul>
-        
-      </div>
-  </div>
-        <div id="main-content" class="col-xs-9">
-          <!--  main content -->
-          <%= yield %>
-        </div>
-      </div>
-    </div>
+    <%= render :partial => "partials/nav" %>
     
- 
+    <div class="row">
+      <div class="container" id="main_content">
+        <%= render :partial => "partials/flash" %>
+        <br></br>
+        <%= yield %>
+      </div>
+    </div>
+    <footer>
+      <div class="center-align" id="footer">
+        <%= render partial: 'partials/footer' %>
+      </div>
+    </footer> 
+    <%= javascript_include_tag "application" %>
   </body>
-  
-  
-  
- 
 </html>
-
-
-
