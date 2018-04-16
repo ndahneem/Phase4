@@ -9,4 +9,14 @@ class Family < ApplicationRecord
     scope :alphabetical, -> { order('family_name') }
     scope :active, -> { where(active: true) }
     scope :inactive, -> { where(active: false) }
+    
+    before_destroy :never_destroy
+    
+    def never_destroy
+        errors.add(:family,"cannot destroy record")
+        throw(:abort)
+    end
+    
+    
+    
 end
