@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180413172756) do
+ActiveRecord::Schema.define(version: 20180414173125) do
 
   create_table "camp_instructors", force: :cascade do |t|
     t.integer "camp_id"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20180413172756) do
   create_table "families", force: :cascade do |t|
     t.string "family_name"
     t.string "parent_first_name"
+    t.string "user_id"
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -54,8 +55,8 @@ ActiveRecord::Schema.define(version: 20180413172756) do
     t.string "first_name"
     t.string "last_name"
     t.text "bio"
-    t.string "email"
-    t.string "phone"
+    t.string "picture"
+    t.string "user_id"
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -69,6 +70,25 @@ ActiveRecord::Schema.define(version: 20180413172756) do
     t.string "state"
     t.string "zip"
     t.integer "max_capacity"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "registrations", force: :cascade do |t|
+    t.string "camp_id"
+    t.string "student_id"
+    t.text "payment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.integer "family_id"
+    t.date "date_of_birth"
+    t.integer "rating"
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

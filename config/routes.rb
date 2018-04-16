@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :registrations
+  resources :students
   resources :families
   resources :users
   get 'home/index'
