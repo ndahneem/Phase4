@@ -4,7 +4,7 @@ class Camp < ApplicationRecord
   belongs_to :location
   has_many :camp_instructors
   has_many :instructors, through: :camp_instructors
-
+  has_many :registrations
   # validations
   validates_presence_of :location_id, :curriculum_id, :time_slot, :start_date
   validates_numericality_of :cost, greater_than_or_equal_to: 0

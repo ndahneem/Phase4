@@ -15,6 +15,24 @@ class Curriculum < ApplicationRecord
   scope :inactive, -> { where(active: false) }
   scope :for_rating, ->(rating) { where("min_rating <= ? and max_rating >= ?", rating, rating) }
 
+  before_destroy :never_destroy
+  before_update :dont_deactivate_if_there_is_upcoming_regisrtations
+  
+  def dont_deactivate_if_there_is_upcoming_regisrtations
+    return true if self.active
+    registrations_associated = self.camps.upcoming.map{|c| c.registrations.count} 
+     if registration_associated.inject(0){|sum, ra| sum += ra}.zero?
+       return true
+     else
+       errors.add(:curriculum, "Cannot make curriculum inactive it has upcoming registrations")
+     end
+    
+  end
+ 
+  def never_destroy
+      errors.add(:curriculum,"cannot destroy curriculum")
+      throw(:abort)
+  end
 
   private
   def max_rating_greater_than_min_rating

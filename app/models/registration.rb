@@ -1,7 +1,7 @@
 class Registration < ApplicationRecord
     # relations
     belongs_to :camp
-    has_one :family, through: :student
+    #has_one :family, through: :student
     belongs_to :student
     
     # validation

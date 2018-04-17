@@ -25,10 +25,6 @@ class Instructor < ApplicationRecord
     # camp.instructors
   end
   
-  # # delegates
-  # delegate :email, to: :user, allow_nil: true
-  # delegate :phone, to: :user, allow_nil: true
-  # delegate :username, to: :user, allow_nil: true
  
   # instance methods
   def name

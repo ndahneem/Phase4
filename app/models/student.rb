@@ -34,6 +34,7 @@ class Student < ApplicationRecord
     #call backs
     before_save :blank_rating
     
+    
     before_destroy do
         check_past_camp_registration
         if errors.present?
