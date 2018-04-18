@@ -76,6 +76,25 @@ class CurriculumTest < ActiveSupport::TestCase
     should "never destroy a curriculum" do
       deny @endgames.destroy
     end
+    
+    
+    should "not allow curriculum to be inactive if it has upcoming camps registration associated" do
+      create_locations
+      create_camps
+      create_family_users
+      create_families
+      create_students
+      create_registrations
+      assert_equal 0, @camp2.registrations.count
+      @camp2.curriculum.update_attribute(:active, false)
+      assert_equal 2, @camp1.registrations.count
+      @camp1.curriculum.update_attribute(:active, false)
+      @camp1.curriculum.valid?
+      
+      
+      
+      
 
+    end
   end
 end

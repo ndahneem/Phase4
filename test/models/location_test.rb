@@ -54,6 +54,24 @@ class LocationTest < ActiveSupport::TestCase
       assert_equal ["Squirrel Hill"], Location.inactive.all.map(&:name).sort
       # delete_inactive_locations
     end
+    
+    should "verify that locations that has past camps cannot be destroyed" do
+      create_curriculums
+      create_camps
+      create_family_users
+      create_families
+      create_students
+      create_registrations
+      
+      not_used_location = FactoryBot.create(:location, name: "Not used", street_1: "230 not used st.", street_2: nil, city: "New York", zip: "12345")
+      not_used_location.destroy
+     
+      @camp1.update_attribute(:start_date, 52.weeks.ago.to_date)
+      @camp1.update_attribute(:end_date, 51.weeks.ago.to_date)
+      deny @cmu.camps.past.empty?
+      deny @cmu.destroy 
+      
+    end
 
   end
 end

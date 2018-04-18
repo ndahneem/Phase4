@@ -84,7 +84,41 @@ class StudentTest < ActiveSupport::TestCase
         assert_equal ["Amal","Aya"], Student.at_or_above_rating(1000).all.map(&:first_name) 
       end
       
+      should "allow student with no past camps to be destroyed" do
+        assert @amal.destroy
+      end
       
+      should "deactivate student with past camps and not destroy" do
+        create_curriculums
+        create_locations
+        create_camps
+        create_registrations
+        @camp1.update_attribute(:start_date, 40.weeks.ago.to_date)
+        @camp1.update_attribute(:end_date, 30.weeks.ago.to_date)
+        assert_equal 2, @camp4.registrations.count
+        assert_equal 2, @reem.registrations.count
+        deny @reem.destroy
+        @camp4.reload
+        deny @reem.active
+        assert_equal 1, @camp4.registrations.count
+        assert_equal 1, @reem.registrations.count
+      end
+      
+      
+      should "remove_upcoming_registrations if student deactivated" do
+        create_curriculums
+        create_locations
+        create_camps
+        create_registrations
+        assert_equal 2, @camp1.registrations.count
+        assert_equal 2, @reem.registrations.count
+        @reem.update_attribute(:active, false)
+        @reem.reload
+        deny @reem.active
+        assert_equal 1, @camp1.registrations.count
+        assert_equal 0, @reem.registrations.count
+
+      end
   end
     
 

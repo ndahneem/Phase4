@@ -2,6 +2,8 @@ class Family < ApplicationRecord
     #relationships
     belongs_to :user
     has_many :students
+    has_many :registrations, through: :students
+
     #validations
     validates_presence_of :family_name , :parent_first_name
     
@@ -22,7 +24,7 @@ class Family < ApplicationRecord
     def family_made_inactive
         if self.active == false
             self.registrations.select{|r| r.camp.start_date >= Date.current}.each{|r| r.destroy}
-            self.students.each{|s| s.make_inactive}
+            self.students.each{|s| s.active=false}
         end
     end
     

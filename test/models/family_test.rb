@@ -5,6 +5,8 @@ class FamilyTest < ActiveSupport::TestCase
   should have_many(:students)
   should validate_presence_of(:family_name)
   should validate_presence_of(:parent_first_name)
+  should have_many(:registrations).through(:students)
+
   
   context "Within context" do
     setup do 
@@ -29,6 +31,21 @@ class FamilyTest < ActiveSupport::TestCase
   
   should "never destroy a family" do
     deny @AlDahneem.destroy
+  end
+  
+  should "remove upcoming regisrtation when family is inactive" do
+      create_curriculums
+      create_locations
+      create_camps
+      create_students
+      create_registrations
+      assert_equal 3, @AlDahneem.registrations.count
+      @AlDahneem.update_attribute(:active, false)
+      @AlDahneem.reload
+      assert_equal 0, @AlDahneem.registrations.count
+      
+
+
   end
     
     

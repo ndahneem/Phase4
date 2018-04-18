@@ -21,8 +21,8 @@ class Curriculum < ApplicationRecord
   def dont_deactivate_if_there_is_upcoming_regisrtations
     return true if self.active
     registrations_associated = self.camps.upcoming.map{|c| c.registrations.count} 
-     if registration_associated.inject(0){|sum, ra| sum += ra}.zero?
-       return true
+     if registrations_associated.inject(0){|sum, ra| sum += ra}.zero?
+       
      else
        errors.add(:curriculum, "Cannot make curriculum inactive it has upcoming registrations")
      end

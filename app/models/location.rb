@@ -27,8 +27,9 @@ class Location < ApplicationRecord
   end
   
   def verify_locataion_have_naver_been_used_for_past_camps
-    if self.camps.past.empty?
+    unless self.camps.past.empty?
       errors.add(:base, "Cannot destroy location, it was used in past camps")
+      
     end
     
   end
