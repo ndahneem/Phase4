@@ -5,8 +5,7 @@ class User < ApplicationRecord
     # relationships
     has_one :instructor
     has_one :family
-    # belongs_to :family
-    # belongs_to :instructor
+
     
     #role list
     ROLE_LIST = [['admin','admin'],['parent','parent'],['instructor','instructor']]

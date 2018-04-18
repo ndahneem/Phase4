@@ -16,5 +16,21 @@ class Location < ApplicationRecord
   scope :alphabetical, -> { order('name') }
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
+  
+  
+  before_destroy do
+    verify_locataion_have_naver_been_used_for_past_camps
+    if errors.present?
+      @destroy = false
+      throw(:abort)
+    end
+  end
+  
+  def verify_locataion_have_naver_been_used_for_past_camps
+    if self.camps.past.empty?
+      errors.add(:base, "Cannot destroy location, it was used in past camps")
+    end
+    
+  end
 
 end

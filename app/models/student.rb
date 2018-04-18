@@ -28,7 +28,7 @@ class Student < ApplicationRecord
     
     def age
         return nil if date_of_birth.blank?
-        (today.to_s(:number).to_i - date_of_birth.to_time.to_s(:number).to_i) / 10000
+        (Time.now.to_s(:number).to_i - date_of_birth.to_time.to_s(:number).to_i)/10e9.to_i
     end
     
     #call backs

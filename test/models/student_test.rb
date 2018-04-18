@@ -32,5 +32,62 @@ class StudentTest < ActiveSupport::TestCase
   should allow_value(0).for(:rating)
   should allow_value(nil).for(:rating)
   
+  context "Within context" do
+      setup do 
+        create_family_users
+        create_families
+        create_students
+      end
+      
+      should "fill blank rating with 0" do
+          @shouq = FactoryBot.create(:student, family: @AlDahneem, first_name: "Shouq", last_name: "AlDahneem", date_of_birth: 9.years.ago.to_date, active: false, rating: nil)
+          assert_equal 0, @shouq.rating
+      end
+      
+      should "validate name method is working" do
+        assert_equal "AlDahneem, Reem", @reem.name
+        assert_equal "AlDahneem, Amal", @amal.name
+      end
+      
+      should "validate proper name method is working" do
+        assert_equal "Reem AlDahneem", @reem.proper_name
+        assert_equal "Amal AlDahneem", @amal.proper_name
+      end
+      
+      
+      should "validate age method is working" do 
+        assert_equal 10, @farah.age  
+        assert_equal 7, @aya.age    
+      end
+      
+      should "sort students in alphabetical order" do
+        assert_equal ["Abdelal, Aya", "AlDahneem, Amal", "AlDahneem, Reem", "Elsakkal, Farah"], Student.alphabetical.all.map(&:name)
+      end
+      
+      should "show 3 active students" do
+        assert_equal 3, Student.active.size
+        assert_equal ["Reem", "Amal", "Farah"], Student.active.all.map(&:first_name)
+      end
+      
+      should "show 1 inactive student" do
+        assert_equal 1, Student.inactive.size
+        assert_equal ["Aya"], Student.inactive.all.map(&:first_name)
+      end
+      
+      should "validate below rating scope is working" do |rating|
+        assert_equal 2, Student.below_rating(1000).size
+        assert_equal ["Reem","Farah"], Student.below_rating(1000).all.map(&:first_name) 
+      end
+      
+      should "validate at_or_above_rating scope is working" do |rating|
+        assert_equal 2, Student.at_or_above_rating(1000).size
+        assert_equal ["Amal","Aya"], Student.at_or_above_rating(1000).all.map(&:first_name) 
+      end
+      
+      
+  end
+    
 
+  
+  
 end
