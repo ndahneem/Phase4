@@ -1,9 +1,12 @@
 class Registration < ApplicationRecord
+    
+    #require 'base64'
     # relations
     belongs_to :camp
     belongs_to :student
+    has_one :family, through: :student
     # credit card validations
-    attr_accessor :card_number
+    attr_accessor :credit_card_number
     attr_accessor :expiration_year
     attr_accessor :expiration_month
     
@@ -12,8 +15,8 @@ class Registration < ApplicationRecord
     validates :camp_id, presence: true, numericality: { greater_than: 0, only_integer: true }
     validate :student_activity_on_system, on: :create
     validate :camp_activity_on_system, on: :create
-    #validates :credit_card_match , on: :create
-    #validates :expiration_check , on: :create
+    validate :card_number_is_valid
+    validate :expiration_date_is_valid
     
     # scopes
     scope :for_camp, ->(camp_id) { where(camp_id: camp_id) }
@@ -29,6 +32,11 @@ class Registration < ApplicationRecord
         self.payment
     end
     
+    
+    def credit_card_type
+        credit_card.type.nil? ? "N/A" : credit_card.type.name
+    end
+
     private
     def student_activity_on_system
         return if self.student.nil?
@@ -40,29 +48,27 @@ class Registration < ApplicationRecord
         errors.add(:camp, "is not currently active") unless self.camp.active
     end
     
-    def credit_card_match
-        if self.card_number.to_s.match("/4[0-9]{12}(?:[0-9]{3})?/") and (self.card_number.to_s.length ==16 ||self.card_number.to_s.length ==13)
-            "VISA"
-        elsif self.card_number.to_s.match("/^5[1-5][0-9]{14}$/") and (self.card_number.to_s.length ==16)
-            "MC"
-        elsif self.card_number.to_s.match("/^6(?:011|5[0-9]{2})[0-9]{12}$/") and (self.card_number.to_s.length ==16)
-            "DISC"
-        elsif self.card_number.to_s.match("/^3(?:0[0-5]|[68][0-9])[0-9]{11}$/") and (self.card_number.to_s.length ==14)
-            "DCCB"
-        elsif self.card_number.to_s.match("/^3[47][0-9]{13}$/") and (self.card_number.to_s.length ==15)   
-            "AMEX"
-        else
-            "Credit Card Number is invalid"
-        end
+    
+    def credit_card
+        CreditCard.new(self.credit_card_number, self.expiration_year, self.expiration_month)
     end
     
-    def expiration_check
-        if self.expiration_year >= Date.today.year && self.expiration_month >= Time.now.month
-            return true
-        else
+    def card_number_is_valid
+        return false if self.expiration_year.nil? || self.expiration_month.nil?
+        if self.credit_card_number.nil? || credit_card.type.nil?
+          errors.add(:credit_card_number, "is not valid")
+          return false
+        end
+        
+    end
+    
+    def expiration_date_is_valid
+        return false if self.credit_card_number.nil? 
+        if self.expiration_year.nil? || self.expiration_month.nil? || credit_card.expired?
+            errors.add(:expiration_year, "is expired")
             return false
         end
+       
     end
-
   
 end

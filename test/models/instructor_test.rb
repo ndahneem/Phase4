@@ -69,6 +69,33 @@ class InstructorTest < ActiveSupport::TestCase
       # delete_active_locations
       # delete_camps
     end
-
+  
+  
+    should "allow instructor to be destroyed if did not taught past camps" do
+      # assert @alex.camps.past.empty?
+      # assert @alex.destroy
+      @test_user   = FactoryBot.create(:user, username: "test", email: "test@andrew.cmu.edu", role: "instructor", phone: "412-268-2323", password: "1234", password_confirmation: "1234", active:true)
+      @test = FactoryBot.create(:instructor, first_name: "Test", last_name: "Test", bio: "tessttttt", user: @test_user, active: true)
+      assert @test.camps.past.empty?
+      assert @test.destroy
+    end
+    
+    should "not allow instructor to be destroyed if taught past camps" do
+      create_curriculums
+      create_active_locations
+      create_camps
+      create_camp_instructors
+      @camp1.update_attribute(:start_date, 32.weeks.ago.to_date)
+      @camp1.update_attribute(:end_date, 31.weeks.ago.to_date)
+      deny @alex.camps.past.empty? 
+      deny @alex.camps.upcoming.empty?
+      
+    end
+    
+    # should " have user account deactivated if instructor made inactive" do
+    #   @alex.active = false
+    #   @alex.save
+    #   deny @alex.user.active
+    # end
   end
 end

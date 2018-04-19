@@ -25,7 +25,19 @@ class Instructor < ApplicationRecord
     # camp.instructors
   end
   
- 
+  # callbacks
+  #   before_destroy do
+  #   instructor_taught_past_camps
+  #   if errors.present?
+  #     @destroy = false
+  #     throw(:abort)
+  #   else
+  #     self.user.destroy
+  #   end
+  # end
+  
+  before_destroy :instructor_taught_past_camps
+  before_update :deactivate_user_if_instructor_made_inactive
   # instance methods
   def name
     last_name + ", " + first_name
@@ -34,7 +46,23 @@ class Instructor < ApplicationRecord
   def proper_name
     first_name + " " + last_name
   end
+  
 
-
+  
+  def instructor_taught_past_camps
+     if self.camps.past.empty?
+        @destroy = false
+        errors.add(:base, 'unable to delete instructor becuase this instructor have taught past camps')
+    end
+  end
+  
+  
+  # def deactivate_user_if_instructor_made_inactive
+  #       if !self.active && !self.user.nil?
+  #         self.user.active = false
+  #         self.user.save
+  #       end
+    
+  # end
     
 end

@@ -53,6 +53,8 @@ class CampTest < ActiveSupport::TestCase
       create_curriculums
       create_active_locations
       create_camps
+      create_users
+      
     end
     
     # teardown do
@@ -186,7 +188,18 @@ class CampTest < ActiveSupport::TestCase
       # delete_camp_instructors
       # delete_instructors
     end
-
+    
+    should "have is full method working" do
+      # create_family_users
+      # create_families
+      # create_students
+      # create_registrations
+      @camp1.max_students= 2
+      @camp1.save
+      assert @camp1.is_full?
+      
+    end
+    
   end
 end
 

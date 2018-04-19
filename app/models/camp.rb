@@ -28,7 +28,21 @@ class Camp < ApplicationRecord
   scope :past, -> { where('end_date < ?', Date.today) }
   scope :for_curriculum, ->(curriculum_id) { where("curriculum_id = ?", curriculum_id) }
   
-    # instance methods
+  
+  # instance methods
+  
+  def is_full?
+    if self.max_students == self.registrations.count
+       true
+    else
+       false
+    end
+  end
+  
+  def enrollment
+    self.registrations.count
+  end
+  
   def name
     self.curriculum.name
   end
