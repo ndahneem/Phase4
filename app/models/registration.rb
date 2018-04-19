@@ -24,10 +24,9 @@ class Registration < ApplicationRecord
     
     def pay
         return false unless self.payment.nil?
-        self.payment = Base64.encode64("camp: #{self.camp_id};
-                                       student: #{self.student_id};
-                                       amount_paid #{self.camp.cost};
-                                       card_type: #{self.credit_card_type};")
+        self.payment = Base64.encode64("camp:#{self.camp_id}; student:#{self.student_id}; amount_paid: #{self.camp.cost};card_type: #{self.credit_card_type}")
+                                       
+        
         self.save!
         self.payment
     end

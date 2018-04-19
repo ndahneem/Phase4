@@ -194,9 +194,24 @@ class CampTest < ActiveSupport::TestCase
       # create_families
       # create_students
       # create_registrations
-      @camp1.max_students= 2
+      @camp1.max_students= 1
       @camp1.save
-      assert @camp1.is_full?
+      deny @camp1.is_full?
+      
+    end
+    
+    should "have enrollment methods working" do
+      assert 2, @camp1.enrollment
+    end
+    
+    
+    should "make_camp_inactive if it has no registrations" do
+      @curriculum_empty  = FactoryBot.create(:curriculum, name: "curriculum empty ", min_rating: 700, max_rating: 1500)
+      @empty_location = FactoryBot.create(:location, name: "Empty", street_1: "801 empty", street_2: nil, city: "Pittsburgh", zip: "15212")
+      @empty_camp_test = FactoryBot.create(:camp, curriculum: @curriculum_empty, location: @empty_location, start_date: 9.days.from_now.to_date, end_date: 13.days.from_now.to_date)
+      @empty_camp_test.active = false
+      assert @empty_camp_test.valid?
+
       
     end
     

@@ -70,5 +70,18 @@ class RegistrationTest < ActiveSupport::TestCase
    
     end
     
+    
+    should "validate payment receipit" do
+      @reem_tactics.payment = nil
+      assert @reem_tactics.save
+      @reem_tactics.credit_card_number = "4123456789012"
+      @reem_tactics.expiration_month = Date.current.month + 1
+      @reem_tactics.expiration_year = Date.current.year
+      assert @reem_tactics.valid?
+      
+      @reem_tactics.pay
+      assert_equal "camp:#{@reem_tactics.camp_id}; student:#{@reem_tactics.student_id}; amount_paid: #{@reem_tactics.camp.cost};card_type: #{@reem_tactics.credit_card_type}", Base64.decode64(@reem_tactics.payment)
+    end
+    
 end
 end

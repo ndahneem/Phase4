@@ -17,6 +17,7 @@ class CampInstructorTest < ActiveSupport::TestCase
     setup do 
       create_curriculums
       create_active_locations
+      create_users
       create_instructors
       create_camps
       create_camp_instructors

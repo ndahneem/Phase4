@@ -28,19 +28,30 @@ class Camp < ApplicationRecord
   scope :past, -> { where('end_date < ?', Date.today) }
   scope :for_curriculum, ->(curriculum_id) { where("curriculum_id = ?", curriculum_id) }
   
+  before_update :make_camp_inactive
   
   # instance methods
   
   def is_full?
     if self.max_students == self.registrations.count
-       true
+       
     else
        false
     end
   end
   
   def enrollment
-    self.registrations.count
+    return self.registrations.count
+  end
+  
+
+  
+  def make_camp_inactive
+    return true if self.active
+    if !self.registrations.to_a.empty?
+      errors.add(:base, "Camp cannot be inactive because there are students registered")
+    end
+    
   end
   
   def name
